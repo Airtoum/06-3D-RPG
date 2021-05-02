@@ -1,0 +1,50 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Dialogue/Dialogue.gd" type="Script" id=2]
+
+[node name="Dialogue" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Border" type="ColorRect" parent="."]
+margin_left = 29.0
+margin_top = 368.0
+margin_right = 991.0
+margin_bottom = 574.0
+color = Color( 0, 0, 0, 0.305882 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextBG" type="ColorRect" parent="Border"]
+margin_left = 206.0
+margin_top = 25.0
+margin_right = 937.0
+margin_bottom = 181.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Text" type="Label" parent="Border"]
+margin_left = 206.0
+margin_top = 25.0
+margin_right = 937.0
+margin_bottom = 181.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Icon" type="TextureRect" parent="Border"]
+margin_left = 25.0
+margin_top = 25.0
+margin_right = 181.0
+margin_bottom = 181.0
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
