@@ -1,10 +1,12 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://Hickory/Hickory.gd" type="Script" id=1]
 [ext_resource path="res://StateMachine/StateMachine.gd" type="Script" id=2]
 [ext_resource path="res://Hickory/Idle.gd" type="Script" id=3]
 [ext_resource path="res://Hickory/Moving.gd" type="Script" id=4]
 [ext_resource path="res://Hickory/Aerial.gd" type="Script" id=5]
+[ext_resource path="res://Materials/HickoryHead.tres" type="Material" id=6]
+[ext_resource path="res://Materials/HickoryLegs.tres" type="Material" id=7]
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "Cylinder.001"
@@ -469,6 +471,7 @@ height = 3.5
 "Player",
 ]]
 script = ExtResource( 1 )
+hickory_face = ExtResource( 6 )
 
 [node name="Model" type="Spatial" parent="."]
 
@@ -522,22 +525,27 @@ bones/8/enabled = true
 bones/8/bound_children = [  ]
 
 [node name="HickoryBody" type="MeshInstance" parent="Model/Armature/Skeleton"]
+material_override = ExtResource( 6 )
 mesh = SubResource( 1 )
 material/0 = null
 
 [node name="HickoryLeftLeg" type="MeshInstance" parent="Model/Armature/Skeleton"]
+material_override = ExtResource( 7 )
 mesh = SubResource( 2 )
 material/0 = null
 
 [node name="HickoryRightLeg" type="MeshInstance" parent="Model/Armature/Skeleton"]
+material_override = ExtResource( 7 )
 mesh = SubResource( 3 )
 material/0 = null
 
 [node name="HickoryLeftFoot" type="MeshInstance" parent="Model/Armature/Skeleton"]
+material_override = ExtResource( 7 )
 mesh = SubResource( 4 )
 material/0 = null
 
 [node name="HickoryRightFoot" type="MeshInstance" parent="Model/Armature/Skeleton"]
+material_override = ExtResource( 7 )
 mesh = SubResource( 5 )
 material/0 = null
 

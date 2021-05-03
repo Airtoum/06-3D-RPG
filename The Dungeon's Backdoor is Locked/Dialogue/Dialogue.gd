@@ -11,13 +11,11 @@ var icon_array = [
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	visible = false
-	if get_node_or_null("/root/Dialogue") != null:
-		show_dialog([
-			["Icon", 0], 
-			["Text", "Let's all go to the malt shop!"], 
-			["Text", "Watch us swooce right in!"]
-			])
-		print("yo")
+#	show_dialog([
+#		["Icon", 0], 
+#		["Text", "Let's all go to the malt shop!"], 
+#		["Text", "Watch us swooce right in!"]
+#		])
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -1,5 +1,6 @@
 extends KinematicBody
 
+export var hickory_face : SpatialMaterial
 onready var SM = $StateMachine
 
 var mouse_sensitivity = (1.0 / 5.0) * (PI / 180) # 1 degree per 5 pixels
@@ -10,11 +11,14 @@ var ground_speed = 13.0
 var aerial_speed = 13.0
 var jump_speed = 19.0
 var ground_or_air = 0.0
+onready var face_material = hickory_face.duplicate()
 
 var active = true
+var look_at_camera = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	$Model/Armature/Skeleton/HickoryBody.material_override = face_material
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _input(event):
@@ -26,6 +30,10 @@ func _input(event):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	$Label.text = SM.state_name
+	if look_at_camera:
+		var uv1 = face_material.get("uv1_offset")
+		var revolutions = ( -$Model.rotation_degrees.y / 360 + $PivotA.rotation_degrees.y / 360)
+		face_material.set("uv1_offset", Vector3( revolutions + 0.5 - 0.042 , uv1.y, uv1.z))
 	
 func _physics_process(delta):
 	velocity += gravity * delta
