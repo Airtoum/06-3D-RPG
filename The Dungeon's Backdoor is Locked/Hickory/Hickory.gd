@@ -36,7 +36,12 @@ func _process(_delta):
 		face_material.set("uv1_offset", Vector3( revolutions + 0.5 - 0.042 , uv1.y, uv1.z))
 	
 func _physics_process(delta):
-	velocity += gravity * delta
+	active = not get_node("/root/Dialogue").active
+	if is_on_floor():
+		#do not slide down slopes https://godotengine.org/qa/16765/more-ideas-how-prevent-slope-slide-down-with-kinematicbody2d
+		velocity += gravity.y * get_floor_normal() * delta
+	else:
+		velocity += gravity * delta
 	velocity = move_and_slide(velocity, Vector3.UP, false)
 	
 func player_movement():
@@ -54,6 +59,8 @@ func player_movement():
 		acc += Vector2(-1,0).rotated($PivotA.rotation_degrees.y * PI / 180)
 	if acc != Vector2.ZERO:
 		var result = -acc.normalized()
+		if Input.is_action_pressed("sprint"):
+			result *= 2
 		target_angle = result.angle() * 180 / PI - 90
 		#$Model.rotation_degrees.y += 1
 		#the model is where the player's rotation is going to be "stored"

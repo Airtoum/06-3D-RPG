@@ -1,8 +1,15 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://DialogueTrigger/DialogTrigger.gd" type="Script" id=1]
+[ext_resource path="res://Assets/DialogueDing.wav" type="AudioStream" id=2]
 
 [sub_resource type="BoxShape" id=1]
+
+[sub_resource type="CubeMesh" id=2]
+
+[sub_resource type="SpatialMaterial" id=3]
+flags_transparent = true
+albedo_color = Color( 0.0627451, 0.937255, 0.0313726, 0.45098 )
 
 [node name="DialogTrigger" type="Area"]
 script = ExtResource( 1 )
@@ -15,6 +22,11 @@ wait_time = 0.8
 one_shot = true
 
 [node name="DialogSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+
+[node name="EditCube" type="MeshInstance" parent="."]
+mesh = SubResource( 2 )
+material/0 = SubResource( 3 )
 [connection signal="body_entered" from="." to="." method="_on_DialogTrigger_body_entered"]
 [connection signal="timeout" from="WaitTimer" to="." method="_on_WaitTimer_timeout"]
 [connection signal="finished" from="DialogSound" to="." method="_on_DialogSound_finished"]

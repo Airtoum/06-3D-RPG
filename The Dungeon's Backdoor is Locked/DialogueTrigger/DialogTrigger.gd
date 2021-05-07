@@ -1,21 +1,27 @@
 extends Area
 
 
-onready var Dialog = $"."
+onready var Dialog = $"/root/Dialogue"
 
 export(String, MULTILINE) var raw_dialog
 export(bool) var instant = false
 export(bool) var only_once = true
+export(NodePath) var receiver_path
 
 var dialog = []
-
+var receiver
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	$EditCube.visible = false
+	if receiver_path != null:
+		receiver = get_node_or_null(receiver_path)
 	var dialog_array = raw_dialog.split("\n")
 	for line in dialog_array:
 		if line.begins_with(">>>icon"):
-			dialog.append([ "icon" , int( line.right(7) ) ])
+			dialog.append([ "icon" , int( line.right(8) ) ])
+		elif line.begins_with(">>>trig"):
+			dialog.append([ "trig" , line.right(8) , receiver ])
 		else:
 			dialog.append([ "text" , line ])
 

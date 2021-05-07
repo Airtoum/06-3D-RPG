@@ -2,10 +2,9 @@ extends Control
 
 var command_index = 0
 var current_commands = []
+var active = false
 
-var icon_array = [
-	"res://icon.png"
-]
+export(Array, Texture) var icon_array
 
 
 # Called when the node enters the scene tree for the first time.
@@ -26,9 +25,10 @@ func show_dialog(commands):
 	command_index = 0
 	current_commands = commands
 	process_commands()
+	active = true
 	
 func _input(event):
-	if event.is_action_pressed("jump"):
+	if active and event.is_action_pressed("jump"):
 		process_commands()
 	
 func process_commands():
@@ -36,10 +36,13 @@ func process_commands():
 	var pause = false
 	while not pause and command_index < current_commands.size():
 		var cmd = current_commands[command_index]
+		print(cmd, pause)
 		match cmd[0]:
-			"Icon":
-				$Border/Icon.texture = load(icon_array[cmd[1]])
-			"Text":
+			"icon":
+				$Border/Icon.texture = icon_array[cmd[1]]
+			"trig":
+				cmd[2].call_deferred(cmd[1])
+			"text":
 				$Border/Text.text = cmd[1]
 				pause = true
 		command_index += 1
@@ -50,3 +53,4 @@ func clear_commands():
 	command_index = 0
 	current_commands = []
 	visible = false
+	active = false

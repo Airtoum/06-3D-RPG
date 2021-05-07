@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Hickory/Hickory.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Latch/Latch.tscn" type="PackedScene" id=2]
+[ext_resource path="res://DialogueTrigger/DialogTrigger.tscn" type="PackedScene" id=3]
 
 [node name="Level" type="Spatial"]
 
@@ -9,6 +10,17 @@
 use_collision = true
 
 [node name="CSGBox" type="CSGBox" parent="CSGCombiner"]
+transform = Transform( 0.982437, 0.186593, 0, -0.186593, 0.982437, 0, 0, 0, 1, 0, 0, 0 )
+width = 54.0
+depth = 8.63855
+
+[node name="CSGBox2" type="CSGBox" parent="CSGCombiner"]
+transform = Transform( 0.937184, -0.348833, 0, 0.348833, 0.937184, 0, 0, 0, 1, 20.7715, -3.9451, 0 )
+width = 54.0
+depth = 8.63855
+
+[node name="CSGBox3" type="CSGBox" parent="CSGCombiner"]
+transform = Transform( 0.405412, 0.914134, 0, -0.914134, 0.405412, 0, 0, 0, 1, 55.621, -18.5631, 0 )
 width = 54.0
 depth = 8.63855
 
@@ -18,3 +30,12 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.53884, 0 )
 [node name="Latch" parent="." instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12.4861, 6.74316, 0 )
 player_path = NodePath("../Hickory")
+
+[node name="DialogTrigger" parent="." instance=ExtResource( 3 )]
+transform = Transform( 2.94731, 1.49274, 0, -0.559778, 7.8595, 0, 0, 0, 3, -24.0164, 6.43512, 0 )
+raw_dialog = ">>>icon0
+Wow, would you look at that!
+>>>icon1
+Look at what?
+>>>icon0
+That coin over there!"

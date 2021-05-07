@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Outside.obj-56ce53f5b5094df3b58dff800d1b507c.mesh"
+
+[deps]
+
+files=[ "res://.import/Outside.obj-56ce53f5b5094df3b58dff800d1b507c.mesh" ]
+
+source_file="res://Levels/Outside.obj"
+dest_files=[ "res://.import/Outside.obj-56ce53f5b5094df3b58dff800d1b507c.mesh", "res://.import/Outside.obj-56ce53f5b5094df3b58dff800d1b507c.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

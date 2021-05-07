@@ -8,9 +8,13 @@ var velocity = Vector3.ZERO
 var fast_speed = 5.0
 var slow_speed = 2.0
 
+export var flailing = false
+var flail_out = true
+var flail_center
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	flail_center = transform.origin
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -19,16 +23,34 @@ func _ready():
 
 func _physics_process(delta):
 	var speed
-	if player != null:
-		var disp = player.transform.origin - transform.origin
-		if distance_to(player) < 7:
-			go_slow()
-			speed = sigmoid(distance_to(player), fast_speed, 4.0, 5.0)
+	if flailing and not $Tween.is_active():
+		velocity = Vector3.ZERO
+		var flail_speed = 0.6
+		if flail_out:
+			var r = 6 # flail radius
+			var flail_target = transform.origin + Vector3(rand_range(-r, r),rand_range(-r/2, r),rand_range(-r, r))
+			var angle = rand_range(-PI, PI)
+			$Tween.interpolate_property(self, "transform:origin", transform.origin, flail_target, flail_speed, Tween.TRANS_QUAD, Tween.EASE_OUT)
+			$Tween.interpolate_property(self, "rotation:y", rotation.y, angle, flail_speed, Tween.TRANS_QUAD, Tween.EASE_OUT)
+			flail_out = false
+			$Tween.start()
 		else:
-			go_fast()
-			speed = fast_speed
-		velocity = (disp).normalized() * speed
-		rotation.y = Vector2(disp.x, -disp.z).angle() + 90
+			var angle = rand_range(-PI, PI)
+			$Tween.interpolate_property(self, "transform:origin", transform.origin, flail_center, flail_speed, Tween.TRANS_QUAD, Tween.EASE_OUT)
+			$Tween.interpolate_property(self, "rotation:y", rotation.y, angle, flail_speed, Tween.TRANS_QUAD, Tween.EASE_OUT)
+			flail_out = true
+			$Tween.start()
+	elif not flailing:
+		if player != null:
+			var disp = player.transform.origin - transform.origin
+			if distance_to(player) < 7:
+				go_slow()
+				speed = sigmoid(distance_to(player), fast_speed, 4.0, 5.0)
+			else:
+				go_fast()
+				speed = fast_speed
+			velocity = (disp).normalized() * speed
+			rotation.y = Vector2(disp.x, -disp.z).angle() + 90
 	transform.origin += velocity * delta
 
 func distance_to(spatial):
@@ -45,3 +67,6 @@ func go_fast():
 func go_slow():
 	$Front.play("Front")
 	$Back.play("Back")
+
+func stop_flailing():
+	flailing = false
