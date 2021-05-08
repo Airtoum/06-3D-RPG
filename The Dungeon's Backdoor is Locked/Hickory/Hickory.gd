@@ -12,6 +12,7 @@ var aerial_speed = 13.0
 var jump_speed = 19.0
 var ground_or_air = 0.0
 onready var face_material = hickory_face.duplicate()
+var health = 3
 
 var active = true
 var look_at_camera = false
@@ -82,6 +83,15 @@ func turn_forward(power):
 		$Model.rotation_degrees.y -= 10 * reverse_turn * power
 	if abs(diff_angle) <= 10 or abs(diff_angle) >= 350:
 		$Model.rotation_degrees.y = target_angle
+		
+func ouch(amount):
+	health -= amount
+	
+	if health <= 0:
+		die()
+		
+func die():
+	anim_dead(1)
 		
 func anim_ground(value):
 	$Model/AnimationTree.set("parameters/Idle_Run/blend_amount", value)

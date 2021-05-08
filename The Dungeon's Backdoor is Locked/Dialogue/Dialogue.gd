@@ -53,4 +53,8 @@ func clear_commands():
 	command_index = 0
 	current_commands = []
 	visible = false
+	$Reactivate.start()
+
+
+func _on_Reactivate_timeout():
 	active = false
