@@ -12,11 +12,23 @@ use_collision = true
 [node name="CSGBox" type="CSGBox" parent="CSGCombiner"]
 transform = Transform( 0.982437, 0.186593, 0, -0.186593, 0.982437, 0, 0, 0, 1, 0, 0, 0 )
 width = 54.0
-depth = 8.63855
+depth = 15.0092
 
 [node name="CSGBox2" type="CSGBox" parent="CSGCombiner"]
 transform = Transform( 0.937184, -0.348833, 0, 0.348833, 0.937184, 0, 0, 0, 1, 20.7715, -3.9451, 0 )
 width = 54.0
+depth = 8.63855
+
+[node name="CSGBox4" type="CSGBox" parent="CSGCombiner"]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 1.33954, 4.54115, -12.49 )
+width = 54.0
+height = 11.006
+depth = 8.63855
+
+[node name="CSGBox5" type="CSGBox" parent="CSGCombiner"]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 1.33954, 12.1583, -21.681 )
+width = 54.0
+height = 11.006
 depth = 8.63855
 
 [node name="CSGBox3" type="CSGBox" parent="CSGCombiner"]
@@ -33,9 +45,9 @@ player_path = NodePath("../Hickory")
 
 [node name="DialogTrigger" parent="." instance=ExtResource( 3 )]
 transform = Transform( 2.94731, 1.49274, 0, -0.559778, 7.8595, 0, 0, 0, 3, -24.0164, 6.43512, 0 )
-raw_dialog = ">>>icon0
+raw_dialog = ">>>icon 0
 Wow, would you look at that!
->>>icon1
+>>>icon 1
 Look at what?
->>>icon0
+>>>icon 0
 That coin over there!"

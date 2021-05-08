@@ -461,7 +461,7 @@ nodes/Running/position = Vector2( 40, 240 )
 nodes/Vertical/node = SubResource( 21 )
 nodes/Vertical/position = Vector2( 640, 280 )
 nodes/output/position = Vector2( 1360, 180 )
-node_connections = [ "output", 0, "Dead", "Idle_Run", 0, "Idle", "Idle_Run", 1, "Run_Speed", "Dead", 0, "Ground_Air", "Dead", 1, "Dying", "Ground_Air", 0, "Idle_Run", "Ground_Air", 1, "Vertical", "Vertical", 0, "Falling", "Vertical", 1, "Jumping", "Run_Speed", 0, "Running" ]
+node_connections = [ "output", 0, "Dead", "Dead", 0, "Ground_Air", "Dead", 1, "Dying", "Ground_Air", 0, "Idle_Run", "Ground_Air", 1, "Vertical", "Run_Speed", 0, "Running", "Vertical", 0, "Falling", "Vertical", 1, "Jumping", "Idle_Run", 0, "Idle", "Idle_Run", 1, "Run_Speed" ]
 
 [sub_resource type="CapsuleShape" id=23]
 height = 3.5
@@ -524,26 +524,31 @@ bones/8/enabled = true
 bones/8/bound_children = [  ]
 
 [node name="HickoryBody" type="MeshInstance" parent="Model/Armature/Skeleton"]
+layers = 2
 material_override = ExtResource( 6 )
 mesh = SubResource( 1 )
 material/0 = null
 
 [node name="HickoryLeftLeg" type="MeshInstance" parent="Model/Armature/Skeleton"]
+layers = 2
 material_override = ExtResource( 7 )
 mesh = SubResource( 2 )
 material/0 = null
 
 [node name="HickoryRightLeg" type="MeshInstance" parent="Model/Armature/Skeleton"]
+layers = 2
 material_override = ExtResource( 7 )
 mesh = SubResource( 3 )
 material/0 = null
 
 [node name="HickoryLeftFoot" type="MeshInstance" parent="Model/Armature/Skeleton"]
+layers = 2
 material_override = ExtResource( 7 )
 mesh = SubResource( 4 )
 material/0 = null
 
 [node name="HickoryRightFoot" type="MeshInstance" parent="Model/Armature/Skeleton"]
+layers = 2
 material_override = ExtResource( 7 )
 mesh = SubResource( 5 )
 material/0 = null

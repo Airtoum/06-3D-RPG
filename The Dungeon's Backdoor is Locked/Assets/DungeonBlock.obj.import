@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/DungeonBlock.obj-a974865057b1c65a00f9e13206fb9887.mesh"
+
+[deps]
+
+files=[ "res://.import/DungeonBlock.obj-a974865057b1c65a00f9e13206fb9887.mesh" ]
+
+source_file="res://Assets/DungeonBlock.obj"
+dest_files=[ "res://.import/DungeonBlock.obj-a974865057b1c65a00f9e13206fb9887.mesh", "res://.import/DungeonBlock.obj-a974865057b1c65a00f9e13206fb9887.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

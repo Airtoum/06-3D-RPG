@@ -40,9 +40,13 @@ func _physics_process(delta):
 	if is_on_floor():
 		#do not slide down slopes https://godotengine.org/qa/16765/more-ideas-how-prevent-slope-slide-down-with-kinematicbody2d
 		velocity += gravity.y * get_floor_normal() * delta
+		#velocity += gravity * delta
 	else:
 		velocity += gravity * delta
-	velocity = move_and_slide(velocity, Vector3.UP, false)
+	#if is_on_wall():
+	#	velocity = Vector3(0.0, velocity.y, 0.0)
+	#print("is_on_wall: " + str(is_on_wall()) + " is_on_floor: " + str(is_on_floor()) + " velocity: " + str(velocity.y) + " get_floor_normal.y: " + str(get_floor_normal().y) + " y_position: " + str(transform.origin.y) +  " State: " + SM.state_name)
+	velocity = move_and_slide(velocity, Vector3.UP, true)
 	
 func player_movement():
 	if not active:

@@ -13,20 +13,20 @@ animations = [ {
 "name": "Back",
 "speed": 3.0
 }, {
-"frames": [ ExtResource( 4 ), ExtResource( 2 ) ],
+"frames": [ ExtResource( 3 ), ExtResource( 1 ) ],
 "loop": true,
-"name": "Front",
-"speed": 3.0
+"name": "BackFast",
+"speed": 9.0
 }, {
 "frames": [ ExtResource( 4 ), ExtResource( 2 ) ],
 "loop": true,
 "name": "FrontFast",
 "speed": 9.0
 }, {
-"frames": [ ExtResource( 3 ), ExtResource( 1 ) ],
+"frames": [ ExtResource( 4 ), ExtResource( 2 ) ],
 "loop": true,
-"name": "BackFast",
-"speed": 9.0
+"name": "Front",
+"speed": 3.0
 } ]
 
 [node name="Latch" type="Spatial"]

@@ -9,7 +9,9 @@ func start():
 	
 func physics_process(delta):
 	var movement = myEnt.player_movement()
-	var target_xz_vel = myEnt.player_movement() * myEnt.ground_speed
+	var target_xz_vel = Vector3.ZERO
+	if not myEnt.is_on_wall():
+		target_xz_vel = movement * myEnt.ground_speed
 	myEnt.velocity.x = weightedSum(myEnt.velocity.x, 0.9, target_xz_vel.x, 0.1)
 	myEnt.velocity.z = weightedSum(myEnt.velocity.z, 0.9, target_xz_vel.z, 0.1)
 	myEnt.turn_forward(1.0)
