@@ -85,9 +85,11 @@ func turn_forward(power):
 		$Model.rotation_degrees.y = target_angle
 		
 func ouch(amount):
+	$Damage.play()
 	health -= amount
-	
 	if health <= 0:
+		$Damage.pitch_scale = 0.8
+		$Damage.play()
 		die()
 		
 func die():
