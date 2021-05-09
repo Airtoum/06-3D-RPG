@@ -5,7 +5,7 @@ export var player_path : NodePath
 onready var player = get_node_or_null(player_path)
 
 var velocity = Vector3.ZERO
-var fast_speed = 5.0
+var fast_speed = 8.0
 var slow_speed = 2.0
 
 export var flailing = false

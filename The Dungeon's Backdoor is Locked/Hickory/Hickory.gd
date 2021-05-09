@@ -2,6 +2,10 @@ extends KinematicBody
 
 export var hickory_face : SpatialMaterial
 onready var SM = $StateMachine
+onready var FireOrb = load("res://FireOrb/FireOrb.tscn")
+export var HitPointIcon : Texture
+export var FireOrbIcon : Texture
+onready var Slot = load("res://Hickory/Slot.tscn")
 
 var mouse_sensitivity = (1.0 / 5.0) * (PI / 180) # 1 degree per 5 pixels
 var velocity = Vector3.ZERO
@@ -13,12 +17,15 @@ var jump_speed = 19.0
 var ground_or_air = 0.0
 onready var face_material = hickory_face.duplicate()
 var health = 3
+var was_on_floor = false
+var fire_orbs = 0
 
 var active = true
 var look_at_camera = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	update_inventory()
 	$Model/Armature/Skeleton/HickoryBody.material_override = face_material
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
@@ -47,7 +54,9 @@ func _physics_process(delta):
 	#if is_on_wall():
 	#	velocity = Vector3(0.0, velocity.y, 0.0)
 	#print("is_on_wall: " + str(is_on_wall()) + " is_on_floor: " + str(is_on_floor()) + " velocity: " + str(velocity.y) + " get_floor_normal.y: " + str(get_floor_normal().y) + " y_position: " + str(transform.origin.y) +  " State: " + SM.state_name)
-	velocity = move_and_slide(velocity, Vector3.UP, true)
+	was_on_floor = is_on_floor()
+	velocity = move_and_slide(velocity, Vector3.UP, true, 4)
+	shoot_fire_orb()
 	
 func player_movement():
 	if not active:
@@ -84,6 +93,18 @@ func turn_forward(power):
 	if abs(diff_angle) <= 10 or abs(diff_angle) >= 350:
 		$Model.rotation_degrees.y = target_angle
 		
+func shoot_fire_orb():
+	if active:
+		if Input.is_action_just_pressed("fire"):
+			var fire_orb = FireOrb.instance()
+			fire_orb.transform.origin = $Model/FireOrbThrow.global_transform.origin
+			fire_orb.rotation.y = rotation.y
+			fire_orb.add_central_force(($Model/FireOrbThrow.global_transform.origin - global_transform.origin).normalized() * 5000.0)
+			var spinniness = 27
+			fire_orb.angular_velocity = spinniness * Vector3(rand_range(-PI, PI), rand_range(-PI, PI), 2 * rand_range(-PI, PI))
+			get_parent().get_node("Stuff").add_child(fire_orb)
+			update_inventory()
+		
 func ouch(amount):
 	$Damage.play()
 	health -= amount
@@ -91,6 +112,7 @@ func ouch(amount):
 		$Damage.pitch_scale = 0.8
 		$Damage.play()
 		die()
+	update_inventory()
 		
 func die():
 	anim_dead(1)
@@ -111,3 +133,26 @@ func play_animation(anim, offset):
 	$Model/AnimationPlayer.play(anim)
 	$Model/AnimationPlayer.seek(offset, true)
 	# this does nothing but it's too small a detail to worry about :(
+
+func is_was_on_floor(): # this is necessary to absolve a stupid bug
+	return is_on_floor() or was_on_floor
+
+func update_inventory():
+	var index = 0
+	for h in range(0, health):
+		inv_add_or_update(index, HitPointIcon)
+		index += 1
+	for f in range(0, fire_orbs):
+		inv_add_or_update(index, FireOrbIcon)
+		index += 1
+	while index < $UI/Inventory.get_child_count():
+		$UI/Inventory.remove_child($UI/Inventory.get_child($UI/Inventory.get_child_count() - 1))
+		
+func inv_add_or_update(i, texture):
+	if $UI/Inventory.get_child_count() <= i:
+		var slot = Slot.instance()
+		slot.texture = texture
+		slot.position.x = 50 * i
+		$UI/Inventory.add_child(slot)
+	else:
+		$UI/Inventory.get_child(i).texture = texture

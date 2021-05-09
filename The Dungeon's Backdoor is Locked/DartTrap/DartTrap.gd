@@ -22,7 +22,7 @@ func _on_Area_body_entered(body):
 		body.ouch(1)
 	var pos = $Darts.transform.origin.x
 	$Darts.visible = true
-	$Tween.interpolate_property($Darts, "transform:origin:x", pos, pos - 8, 0.1, Tween.TRANS_LINEAR, Tween.EASE_OUT_IN)
+	$Tween.interpolate_property($Darts, "transform:origin:x", pos, pos - 8, 0.2, Tween.TRANS_LINEAR, Tween.EASE_OUT_IN)
 	$Tween.start()
 	triggered = true
 

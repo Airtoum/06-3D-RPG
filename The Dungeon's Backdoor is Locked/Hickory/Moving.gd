@@ -17,10 +17,10 @@ func physics_process(delta):
 	myEnt.turn_forward(1.0)
 	if movement == Vector3.ZERO:
 		SM.set_state("Idle")
-	if Input.is_action_just_pressed("jump") and myEnt.is_on_floor() and myEnt.active:
+	if Input.is_action_just_pressed("jump") and myEnt.is_was_on_floor() and myEnt.active:
 		myEnt.velocity.y += myEnt.jump_speed
 		SM.set_state("Aerial")
-	if not myEnt.is_on_floor():
+	if not myEnt.is_was_on_floor():
 		SM.set_state("Aerial")
 	myEnt.anim_ground(Vector2(myEnt.velocity.x, myEnt.velocity.z).length() / myEnt.ground_speed)
 	myEnt.ground_or_air = weightedSum(myEnt.ground_or_air, 0.8, 0, 0.2)

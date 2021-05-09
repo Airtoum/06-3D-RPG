@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://Hickory/Hickory.gd" type="Script" id=1]
 [ext_resource path="res://StateMachine/StateMachine.gd" type="Script" id=2]
@@ -8,6 +8,8 @@
 [ext_resource path="res://Materials/HickoryHead.tres" type="Material" id=6]
 [ext_resource path="res://Materials/HickoryLegs.tres" type="Material" id=7]
 [ext_resource path="res://Assets/Damage.wav" type="AudioStream" id=8]
+[ext_resource path="res://Assets/HitPoint.png" type="Texture" id=9]
+[ext_resource path="res://Assets/FireOrb.png" type="Texture" id=10]
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "Cylinder.001"
@@ -472,6 +474,8 @@ height = 3.5
 ]]
 script = ExtResource( 1 )
 hickory_face = ExtResource( 6 )
+HitPointIcon = ExtResource( 9 )
+FireOrbIcon = ExtResource( 10 )
 
 [node name="Model" type="Spatial" parent="."]
 
@@ -572,6 +576,9 @@ parameters/Idle_Run/blend_amount = 0.0
 parameters/Run_Speed/scale = 1.7
 parameters/Vertical/blend_amount = 0.0
 
+[node name="FireOrbThrow" type="Spatial" parent="Model"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.528901, 1.56344 )
+
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, -1.5, 0 )
 shape = SubResource( 23 )
@@ -601,6 +608,7 @@ script = ExtResource( 5 )
 [node name="Dead" type="Node" parent="StateMachine"]
 
 [node name="Label" type="Label" parent="."]
+visible = false
 margin_right = 91.0
 margin_bottom = 58.0
 rect_scale = Vector2( 4, 4 )
@@ -610,3 +618,14 @@ __meta__ = {
 
 [node name="Damage" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 8 )
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Inventory" type="Control" parent="UI"]
+margin_left = 15.0
+margin_top = 15.0
+margin_right = 55.0
+margin_bottom = 55.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
