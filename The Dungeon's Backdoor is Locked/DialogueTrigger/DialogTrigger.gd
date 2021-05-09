@@ -32,7 +32,7 @@ func _ready():
 
 
 func _on_DialogTrigger_body_entered(body):
-	if body.is_in_group("Player"):
+	if body.is_in_group("Player") and body.health > 0:
 		$DialogSound.play()
 		if instant:
 			Dialog.show_dialog(dialog)

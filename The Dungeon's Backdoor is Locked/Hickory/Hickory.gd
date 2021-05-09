@@ -100,7 +100,7 @@ func turn_forward(power):
 		$Model.rotation_degrees.y = target_angle
 		
 func shoot_fire_orb():
-	if active:
+	if active and health > 0:
 		if Input.is_action_just_pressed("fire") and fire_orbs > 0:
 			var fire_orb = FireOrb.instance()
 			fire_orb.transform.origin = $Model/FireOrbThrow.global_transform.origin
@@ -113,6 +113,8 @@ func shoot_fire_orb():
 			update_inventory()
 		
 func ouch(amount):
+	if not $Hitstun.is_stopped():
+		return
 	$Damage.play()
 	health -= amount
 	if health <= 0:
@@ -120,8 +122,10 @@ func ouch(amount):
 		$Damage.play()
 		die()
 	update_inventory()
+	$Hitstun.start()
 		
 func die():
+	SM.set_state("Dead")
 	anim_dead(1)
 		
 func anim_ground(value):

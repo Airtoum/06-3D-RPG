@@ -10,6 +10,7 @@ var wandering = true
 var move = Vector3.ZERO
 var wander_speed = 1.0
 var chase_speed = 4.0
+var knockback_power = 15.0
 
 var conjurer = null
 
@@ -25,6 +26,8 @@ func _ready():
 
 
 func _physics_process(delta):
+	if get_node("/root/Dialogue").active:
+		return
 	velocity += gravity * delta
 	wandering = distance_to(player) > 20
 	if wandering:
@@ -39,6 +42,17 @@ func _physics_process(delta):
 	velocity.x = move.x
 	velocity.z = move.z
 	velocity = move_and_slide(velocity, Vector3.UP, false)
+	var hit = false
+	for c in get_slide_count():
+		var collision = get_slide_collision(c)
+		if collision.collider.is_in_group("Player"):
+			hit = true
+	if hit:
+		player.ouch(1)
+		var knockback = player.transform.origin - transform.origin
+		knockback.y = 0
+		knockback = knockback.normalized() * knockback_power
+		player.velocity += knockback
 	
 func distance_to(spatial):
 	return (transform.origin - spatial.transform.origin).length()	

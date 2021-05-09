@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=35 format=2]
 
 [ext_resource path="res://Hickory/Hickory.gd" type="Script" id=1]
 [ext_resource path="res://StateMachine/StateMachine.gd" type="Script" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://Assets/Damage.wav" type="AudioStream" id=8]
 [ext_resource path="res://Assets/HitPoint.png" type="Texture" id=9]
 [ext_resource path="res://Assets/FireOrb.png" type="Texture" id=10]
+[ext_resource path="res://Hickory/Dead.gd" type="Script" id=11]
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "Cylinder.001"
@@ -440,7 +441,7 @@ animation = "Running"
 [sub_resource type="AnimationNodeBlend2" id=21]
 
 [sub_resource type="AnimationNodeBlendTree" id=22]
-graph_offset = Vector2( -122, 157 )
+graph_offset = Vector2( -318, 224 )
 nodes/Dead/node = SubResource( 11 )
 nodes/Dead/position = Vector2( 1100, 180 )
 nodes/Dying/node = SubResource( 12 )
@@ -460,7 +461,7 @@ nodes/Jumping/position = Vector2( 460, 460 )
 nodes/Run_Speed/node = SubResource( 19 )
 nodes/Run_Speed/position = Vector2( 240, 240 )
 nodes/Running/node = SubResource( 20 )
-nodes/Running/position = Vector2( 40, 240 )
+nodes/Running/position = Vector2( 20, 240 )
 nodes/Vertical/node = SubResource( 21 )
 nodes/Vertical/position = Vector2( 640, 280 )
 nodes/output/position = Vector2( 1360, 180 )
@@ -606,9 +607,9 @@ script = ExtResource( 4 )
 script = ExtResource( 5 )
 
 [node name="Dead" type="Node" parent="StateMachine"]
+script = ExtResource( 11 )
 
 [node name="Label" type="Label" parent="."]
-visible = false
 margin_right = 91.0
 margin_bottom = 58.0
 rect_scale = Vector2( 4, 4 )
@@ -632,4 +633,8 @@ __meta__ = {
 
 [node name="FireOrbTimer" type="Timer" parent="."]
 wait_time = 3.0
+
+[node name="Hitstun" type="Timer" parent="."]
+wait_time = 0.4
+one_shot = true
 [connection signal="timeout" from="FireOrbTimer" to="." method="_on_FireOrbTimer_timeout"]
