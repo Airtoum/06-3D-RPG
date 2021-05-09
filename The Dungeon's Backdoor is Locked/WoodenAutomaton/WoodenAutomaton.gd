@@ -9,11 +9,14 @@ var health = 2
 var wandering = true
 var move = Vector3.ZERO
 var wander_speed = 1.0
-var chase_speed = 3.0
+var chase_speed = 4.0
+
+var conjurer = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	if player_path == "":
+		player = get_parent().get_parent().get_node_or_null("Hickory")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -41,9 +44,13 @@ func distance_to(spatial):
 	return (transform.origin - spatial.transform.origin).length()	
 
 func ouch(damage):
+	$Tween.interpolate_property($CollisionShape/Front, "modulate", Color.red, Color.white, 0.4, Tween.TRANS_LINEAR)
+	$Tween.interpolate_property($CollisionShape/Back, "modulate", Color.red, Color.white, 0.4, Tween.TRANS_LINEAR)
+	$Tween.start()
 	health -= 1
 	if health <= 0:
 		die()
 		
 func die():
+	conjurer.forget(self)
 	queue_free()

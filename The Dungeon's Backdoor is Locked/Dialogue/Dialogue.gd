@@ -30,6 +30,8 @@ func show_dialog(commands):
 func _input(event):
 	if active and event.is_action_pressed("jump"):
 		process_commands()
+	if active and event.is_action_pressed("skip_all"):
+		clear_commands()
 	
 func process_commands():
 	visible = true
