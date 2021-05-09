@@ -22,6 +22,7 @@ material/0 = SubResource( 2 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.268469, 0.776222, 0 )
 light_color = Color( 1, 0.654902, 0, 1 )
 light_energy = 6.24
+light_bake_mode = 2
 omni_range = 24.0
 omni_attenuation = 0.466516
 

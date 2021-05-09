@@ -7,6 +7,7 @@ onready var player = get_node_or_null(player_path)
 var velocity = Vector3.ZERO
 var fast_speed = 8.0
 var slow_speed = 2.0
+var very_fast_speed = 15.0
 
 export var flailing = false
 var flail_out = true
@@ -46,9 +47,12 @@ func _physics_process(delta):
 			if distance_to(player) < 7:
 				go_slow()
 				speed = sigmoid(distance_to(player), fast_speed, 4.0, 5.0)
-			else:
+			elif distance_to(player) < 25:
 				go_fast()
 				speed = fast_speed
+			else:
+				go_very_fast()
+				speed = very_fast_speed
 			velocity = (disp).normalized() * speed
 			rotation.y = Vector2(disp.x, -disp.z).angle() + 90
 	transform.origin += velocity * delta
@@ -67,6 +71,10 @@ func go_fast():
 func go_slow():
 	$Front.play("Front")
 	$Back.play("Back")
+	
+func go_very_fast():
+	$Front.play("FrontVeryFast")
+	$Back.play("BackVeryFast")
 
 func stop_flailing():
 	flailing = false

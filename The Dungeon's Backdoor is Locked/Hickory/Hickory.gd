@@ -18,6 +18,7 @@ var ground_or_air = 0.0
 onready var face_material = hickory_face.duplicate()
 var health = 3
 var was_on_floor = false
+export var tome_of_fire_orb = false
 var fire_orbs = 0
 
 var active = true
@@ -25,6 +26,8 @@ var look_at_camera = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	if tome_of_fire_orb:
+		$FireOrbTimer.start()
 	update_inventory()
 	$Model/Armature/Skeleton/HickoryBody.material_override = face_material
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -74,7 +77,10 @@ func player_movement():
 	if acc != Vector2.ZERO:
 		var result = -acc.normalized()
 		if Input.is_action_pressed("sprint"):
+			anim_run_speed(3.4)
 			result *= 2
+		else:
+			anim_run_speed(1.7)
 		target_angle = result.angle() * 180 / PI - 90
 		#$Model.rotation_degrees.y += 1
 		#the model is where the player's rotation is going to be "stored"
@@ -95,14 +101,15 @@ func turn_forward(power):
 		
 func shoot_fire_orb():
 	if active:
-		if Input.is_action_just_pressed("fire"):
+		if Input.is_action_just_pressed("fire") and fire_orbs > 0:
 			var fire_orb = FireOrb.instance()
 			fire_orb.transform.origin = $Model/FireOrbThrow.global_transform.origin
 			fire_orb.rotation.y = rotation.y
-			fire_orb.add_central_force(($Model/FireOrbThrow.global_transform.origin - global_transform.origin).normalized() * 5000.0)
-			var spinniness = 27
-			fire_orb.angular_velocity = spinniness * Vector3(rand_range(-PI, PI), rand_range(-PI, PI), 2 * rand_range(-PI, PI))
+			fire_orb.add_central_force(($Model/FireOrbThrow.global_transform.origin - global_transform.origin).normalized() * 4000.0)
+			var spinniness = 27 * 0.4
+			fire_orb.angular_velocity = spinniness * Vector3( 0 * rand_range(-PI, PI), 0 * rand_range(-PI, PI), 1 * rand_range(-PI, PI)).rotated(Vector3.UP, $Model.rotation.y)
 			get_parent().get_node("Stuff").add_child(fire_orb)
+			fire_orbs -= 1
 			update_inventory()
 		
 func ouch(amount):
@@ -128,6 +135,9 @@ func anim_ground_or_air(value):
 	
 func anim_dead(value):
 	$Model/AnimationTree.set("parameters/Dead/blend_amount", value)
+	
+func anim_run_speed(value):
+	$Model/AnimationTree.set("parameters/Run_Speed/scale", value)
 
 func play_animation(anim, offset):
 	$Model/AnimationPlayer.play(anim)
@@ -156,3 +166,14 @@ func inv_add_or_update(i, texture):
 		$UI/Inventory.add_child(slot)
 	else:
 		$UI/Inventory.get_child(i).texture = texture
+		
+func get_tome_of_fire_orb():
+	fire_orbs = 5
+	tome_of_fire_orb = true
+	update_inventory()
+	$FireOrbTimer.start()
+
+func _on_FireOrbTimer_timeout():
+	if tome_of_fire_orb and fire_orbs < 5:
+		fire_orbs += 1
+		update_inventory()

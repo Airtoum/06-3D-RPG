@@ -440,7 +440,7 @@ animation = "Running"
 [sub_resource type="AnimationNodeBlend2" id=21]
 
 [sub_resource type="AnimationNodeBlendTree" id=22]
-graph_offset = Vector2( -139, 52.75 )
+graph_offset = Vector2( -122, 157 )
 nodes/Dead/node = SubResource( 11 )
 nodes/Dead/position = Vector2( 1100, 180 )
 nodes/Dying/node = SubResource( 12 )
@@ -464,7 +464,7 @@ nodes/Running/position = Vector2( 40, 240 )
 nodes/Vertical/node = SubResource( 21 )
 nodes/Vertical/position = Vector2( 640, 280 )
 nodes/output/position = Vector2( 1360, 180 )
-node_connections = [ "output", 0, "Dead", "Dead", 0, "Ground_Air", "Dead", 1, "Dying", "Ground_Air", 0, "Idle_Run", "Ground_Air", 1, "Vertical", "Run_Speed", 0, "Running", "Vertical", 0, "Falling", "Vertical", 1, "Jumping", "Idle_Run", 0, "Idle", "Idle_Run", 1, "Run_Speed" ]
+node_connections = [ "output", 0, "Dead", "Run_Speed", 0, "Running", "Dead", 0, "Ground_Air", "Dead", 1, "Dying", "Vertical", 0, "Falling", "Vertical", 1, "Jumping", "Idle_Run", 0, "Idle", "Idle_Run", 1, "Run_Speed", "Ground_Air", 0, "Idle_Run", "Ground_Air", 1, "Vertical" ]
 
 [sub_resource type="CapsuleShape" id=23]
 height = 3.5
@@ -577,7 +577,7 @@ parameters/Run_Speed/scale = 1.7
 parameters/Vertical/blend_amount = 0.0
 
 [node name="FireOrbThrow" type="Spatial" parent="Model"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.528901, 1.56344 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.529, 2.25 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, -1.5, 0 )
@@ -629,3 +629,7 @@ margin_bottom = 55.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="FireOrbTimer" type="Timer" parent="."]
+wait_time = 3.0
+[connection signal="timeout" from="FireOrbTimer" to="." method="_on_FireOrbTimer_timeout"]

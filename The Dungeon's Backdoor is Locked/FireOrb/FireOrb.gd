@@ -21,8 +21,16 @@ func _on_FireOrb_body_entered(body):
 		return
 	collisions += 1
 	$TimeSinceBounce.start()
-	print(collisions)
+	#print(collisions)
+	if body.has_method("ouch") and not body.is_in_group("Player"):
+		body.ouch(1)
 	if collisions >= max_bounces:
-		mode = RigidBody.MODE_STATIC
-		$CollisionShape.disabled = true
-		queue_free()
+		die()
+
+func ouch(damage):
+	die()
+	
+func die():
+	mode = RigidBody.MODE_STATIC
+	$CollisionShape.disabled = true
+	queue_free()

@@ -8,6 +8,7 @@ data = PoolVector3Array( -1, 1, -1, 1, 1, -1, -1, 1, 1, -1, 1, 1, 1, 1, -1, 1, 1
 [node name="Gridmap" type="Spatial"]
 
 [node name="DungeonBlock" type="MeshInstance" parent="."]
+use_in_baked_light = true
 mesh = ExtResource( 1 )
 material/0 = null
 

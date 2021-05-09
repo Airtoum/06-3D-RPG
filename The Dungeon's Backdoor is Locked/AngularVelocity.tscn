@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="PrismMesh" id=1]
+
+[node name="Spatial" type="Spatial"]
+
+[node name="RigidBody" type="RigidBody" parent="."]
+gravity_scale = 0.0
+angular_velocity = Vector3( 0, 0, 1 )
+
+[node name="MeshInstance" type="MeshInstance" parent="RigidBody"]
+mesh = SubResource( 1 )
+material/0 = null
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 0.816027, -0.248195, 0.522015, 0, 0.903118, 0.429392, -0.578014, -0.350396, 0.736968, 2.47246, 1.87498, 3.34246 )
+current = true

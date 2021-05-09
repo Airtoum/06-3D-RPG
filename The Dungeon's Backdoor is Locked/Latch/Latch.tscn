@@ -13,6 +13,11 @@ animations = [ {
 "name": "Back",
 "speed": 3.0
 }, {
+"frames": [ ExtResource( 4 ), ExtResource( 2 ) ],
+"loop": true,
+"name": "Front",
+"speed": 3.0
+}, {
 "frames": [ ExtResource( 3 ), ExtResource( 1 ) ],
 "loop": true,
 "name": "BackFast",
@@ -25,8 +30,13 @@ animations = [ {
 }, {
 "frames": [ ExtResource( 4 ), ExtResource( 2 ) ],
 "loop": true,
-"name": "Front",
-"speed": 3.0
+"name": "FrontVeryFast",
+"speed": 15.0
+}, {
+"frames": [ ExtResource( 3 ), ExtResource( 1 ) ],
+"loop": true,
+"name": "BackVeryFast",
+"speed": 15.0
 } ]
 
 [node name="Latch" type="Spatial"]
@@ -37,6 +47,7 @@ transform = Transform( 0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0 )
 double_sided = false
 frames = SubResource( 1 )
 animation = "Front"
+frame = 1
 playing = true
 
 [node name="Back" type="AnimatedSprite3D" parent="."]
