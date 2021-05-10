@@ -60,7 +60,7 @@ albedo_color = Color( 0, 0, 0, 1 )
 [node name="Floor1" type="Spatial"]
 
 [node name="Hickory" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -86.6148, 4.5, -116.413 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -56.4018, 4.49999, 24.5383 )
 
 [node name="PlayerLight" type="OmniLight" parent="Hickory"]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, -3, 0 )
