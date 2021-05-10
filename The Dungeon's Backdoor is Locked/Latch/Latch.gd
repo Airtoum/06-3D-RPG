@@ -12,11 +12,15 @@ var very_fast_speed = 15.0
 export var flailing = false
 var flail_out = true
 var flail_center
+var interacting = false
+export(NodePath) var interact_with_path
+var interact_with = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	flail_center = transform.origin
-
+	if interact_with_path != null:
+		interact_with = get_node(interact_with_path)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
@@ -42,12 +46,19 @@ func _physics_process(delta):
 			flail_out = true
 			$Tween.start()
 	elif not flailing:
-		if player != null:
-			var disp = player.transform.origin - transform.origin
-			if distance_to(player) < 7:
+		var target = player
+		var dist_scale = 1.0
+		if interacting:
+			target = interact_with
+			dist_scale = 0.2
+		if target != null:
+			var disp = target.transform.origin - transform.origin
+			if distance_to(target) < 7 * dist_scale:
 				go_slow()
-				speed = sigmoid(distance_to(player), fast_speed, 4.0, 5.0)
-			elif distance_to(player) < 25:
+				speed = sigmoid(distance_to(target), fast_speed, 4.0, 5.0)
+				if interacting and $InteractTimer.is_stopped():
+					$InteractTimer.start()
+			elif distance_to(target) < 25 * dist_scale:
 				go_fast()
 				speed = fast_speed
 			else:
@@ -78,3 +89,10 @@ func go_very_fast():
 
 func stop_flailing():
 	flailing = false
+	
+func interact():
+	interacting = true
+
+func _on_InteractTimer_timeout():
+	interact_with.latch_interact()
+	interacting = false

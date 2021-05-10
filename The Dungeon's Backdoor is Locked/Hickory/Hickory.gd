@@ -6,6 +6,7 @@ onready var FireOrb = load("res://FireOrb/FireOrb.tscn")
 export var HitPointIcon : Texture
 export var FireOrbIcon : Texture
 onready var Slot = load("res://Hickory/Slot.tscn")
+onready var global = get_node("/root/Global")
 
 var mouse_sensitivity = (1.0 / 5.0) * (PI / 180) # 1 degree per 5 pixels
 var velocity = Vector3.ZERO
@@ -26,6 +27,7 @@ var look_at_camera = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	global.player = self
 	if tome_of_fire_orb:
 		$FireOrbTimer.start()
 	update_inventory()
@@ -176,6 +178,11 @@ func get_tome_of_fire_orb():
 	tome_of_fire_orb = true
 	update_inventory()
 	$FireOrbTimer.start()
+	
+func post_keypad():
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	$PivotA/PivotB/Camera.current = true
+	visible = true
 
 func _on_FireOrbTimer_timeout():
 	if tome_of_fire_orb and fire_orbs < 5:

@@ -47,6 +47,7 @@ transform = Transform( 0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0 )
 double_sided = false
 frames = SubResource( 1 )
 animation = "Front"
+frame = 1
 playing = true
 
 [node name="Back" type="AnimatedSprite3D" parent="."]
@@ -58,3 +59,8 @@ frame = 1
 playing = true
 
 [node name="Tween" type="Tween" parent="."]
+
+[node name="InteractTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+[connection signal="timeout" from="InteractTimer" to="." method="_on_InteractTimer_timeout"]

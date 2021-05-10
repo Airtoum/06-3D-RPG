@@ -1,6 +1,7 @@
 extends Node
 
 var time = 0.0
+var player = null
 
 func _process(delta):
 	if Input.is_action_pressed("quit"):
