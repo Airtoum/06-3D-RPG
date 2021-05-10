@@ -1,5 +1,6 @@
 extends Spatial
 
+export var reverse_darts = false
 
 var triggered = false
 
@@ -8,7 +9,10 @@ var triggered = false
 func _ready():
 	$Area/MeshInstance.visible = false
 	$Darts.visible = false
-
+	if reverse_darts:
+		$Darts/Dart.flip_h = true
+		$Darts/Dart2.flip_h = true
+		$Darts/Dart3.flip_h = true
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
@@ -22,7 +26,10 @@ func _on_Area_body_entered(body):
 		body.ouch(1)
 	var pos = $Darts.transform.origin.x
 	$Darts.visible = true
-	$Tween.interpolate_property($Darts, "transform:origin:x", pos, pos - 8, 0.2, Tween.TRANS_LINEAR, Tween.EASE_OUT_IN)
+	if reverse_darts:
+		$Tween.interpolate_property($Darts, "transform:origin:x", pos - 8, pos, 0.2, Tween.TRANS_LINEAR, Tween.EASE_OUT_IN)
+	else:
+		$Tween.interpolate_property($Darts, "transform:origin:x", pos, pos - 8, 0.2, Tween.TRANS_LINEAR, Tween.EASE_OUT_IN)
 	$Tween.start()
 	triggered = true
 
