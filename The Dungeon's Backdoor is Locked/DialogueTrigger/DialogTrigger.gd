@@ -7,15 +7,21 @@ export(String, MULTILINE) var raw_dialog
 export(bool) var instant = false
 export(bool) var only_once = true
 export(NodePath) var receiver_path
+export(bool) var needs_thing_exist = false
+export(NodePath) var exist_thing_path
+export(bool) var invert_exist_condition = false
 
 var dialog = []
 var receiver
+var exist_thing
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$EditCube.visible = false
 	if receiver_path != null:
 		receiver = get_node_or_null(receiver_path)
+	if exist_thing_path != null:
+		exist_thing = get_node_or_null(exist_thing_path)
 	var dialog_array = raw_dialog.split("\n")
 	for line in dialog_array:
 		if line.begins_with(">>>icon"):
@@ -32,6 +38,10 @@ func _ready():
 
 
 func _on_DialogTrigger_body_entered(body):
+	if needs_thing_exist:
+		exist_thing = get_node_or_null(exist_thing_path)
+		if (exist_thing != null) == invert_exist_condition:
+			return
 	if body.is_in_group("Player") and body.health > 0:
 		$DialogSound.play()
 		if instant:

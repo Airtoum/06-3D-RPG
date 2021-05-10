@@ -21,6 +21,12 @@ func _on_FireOrb_body_entered(body):
 	# do not ignore dealing damage if you just collided with something
 	if body.has_method("ouch") and not body.is_in_group("Player"):
 		body.ouch(1)
+	if body.is_in_group("Burnable"):
+		print(body)
+		if body.has_method("die"):
+			body.die()
+		else:
+			body.queue_free()
 	# ignore collisions that happen very close to each other temporally
 	if not $TimeSinceBounce.is_stopped():
 		return

@@ -33,7 +33,7 @@ func _physics_process(delta):
 	if wandering:
 		if is_on_wall():
 			move = Vector3.ZERO
-			print("Redirecting!")
+			#print("Redirecting!")
 		if move == Vector3.ZERO and wandering:
 			move = Vector3.FORWARD.rotated(Vector3.UP, rand_range(0.0, 2 * PI)) * wander_speed
 	else:
@@ -66,5 +66,6 @@ func ouch(damage):
 		die()
 		
 func die():
-	conjurer.forget(self)
+	if conjurer != null:
+		conjurer.forget(self)
 	queue_free()
