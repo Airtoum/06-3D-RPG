@@ -186,11 +186,16 @@ transform = Transform( 5, 0, 1.73205, 0, 7, 0, -8.66025, 0, 1, 9.50309, 6.56831,
 raw_dialog = ">>>icon 0
 I hope it's okay with you that I'm destroying all these Wooden Automatons.
 >>>icon 8
-Ah, don't worry. They're very  easy to make.
+Ah, don't worry. They're very easy to make.
 >>>icon 6
 This next hallway has a bunch of traps. Besides all the ones you can already see, there's a chain of dart traps connecting the pebbles.
 Don't step in the line between two pebbles."
 instant = true
+
+[node name="Pebble3" type="MeshInstance" parent="Stuff"]
+transform = Transform( -0.321394, 0, 0.383022, 0, 0.5, 0, -0.383022, 0, -0.321394, 7.74966, 0.5, -53.4666 )
+mesh = ExtResource( 10 )
+material/0 = null
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 8 )

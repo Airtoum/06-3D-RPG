@@ -26,10 +26,14 @@ __meta__ = {
 icon_array = [ ExtResource( 1 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 8 ), ExtResource( 10 ), ExtResource( 7 ), ExtResource( 6 ), ExtResource( 5 ), ExtResource( 9 ) ]
 
 [node name="Border" type="ColorRect" parent="."]
-margin_left = 29.0
-margin_top = 368.0
-margin_right = 991.0
-margin_bottom = 574.0
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -483.0
+margin_top = -232.0
+margin_right = 479.0
+margin_bottom = -26.0
 color = Color( 0, 0, 0, 0.305882 )
 __meta__ = {
 "_edit_use_anchors_": false
